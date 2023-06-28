@@ -1,0 +1,23 @@
+name: Go Release Workflow
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "server/v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        path: server
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          generate_release_notes: true
+      - name: GO list
+        run: GOPROXY=proxy.golang.org go list -m github.com/adharshmk96/go-monorepo-test/server@${{ github.ref_name }}
