@@ -5,9 +5,9 @@ PATCH := $(shell echo $(VERSION) | cut -d . -f 3 | sed 's/v//')
 NEW_PATCH := $(shell echo $$(($(PATCH) + 1)))
 NEW_MINOR := $(shell echo $$(($(MINOR) + 1)))
 NEW_MAJOR := $(shell echo $$(($(MAJOR) + 1)))
-NEW_TAG_PATCH := $(MAJOR).$(MINOR).$(NEW_PATCH)
-NEW_TAG_MINOR := $(MAJOR).$(NEW_MINOR).0
-NEW_TAG_MAJOR := $(NEW_MAJOR).0.0
+NEW_TAG_PATCH := server/$(MAJOR).$(MINOR).$(NEW_PATCH)
+NEW_TAG_MINOR := server/$(MAJOR).$(NEW_MINOR).0
+NEW_TAG_MAJOR := server/$(NEW_MAJOR).0.0
 
 .PHONY: patch minor major build test publish
 
